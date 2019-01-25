@@ -37,6 +37,7 @@ class BubbleScreen extends StatelessWidget {
                 online: true,
                 isMe: true,
                 isNext: false,
+                showAvatar: false,
               ),
               Bubble(
                 message: 'Cooler Text, Bro!',
@@ -44,6 +45,7 @@ class BubbleScreen extends StatelessWidget {
                 online: true,
                 isMe: false,
                 isNext: false,
+                showAvatar: true,
               ),
               Bubble(
                 message:
@@ -52,12 +54,14 @@ class BubbleScreen extends StatelessWidget {
                 online: true,
                 isMe: true,
                 isNext: true,
+                showAvatar: false,
               ),
               Bubble(
                 message: 'I\'ve told you so dude!',
                 online: true,
                 isMe: true,
                 isNext: false,
+                showAvatar: false,
               ),
               Bubble(
                 message: 'Nice one, Flutter is awesome',
@@ -65,6 +69,7 @@ class BubbleScreen extends StatelessWidget {
                 online: true,
                 isMe: false,
                 isNext: false,
+                showAvatar: true,
               ),
               Bubble(
                 message: 'Whatsapp like bubble talk',
@@ -72,12 +77,14 @@ class BubbleScreen extends StatelessWidget {
                 online: true,
                 isMe: true,
                 isNext: true,
+                showAvatar: false,
               ),
               Bubble(
                 message: 'Hi there 🖐🏻, this is a message',
                 online: true,
                 isMe: true,
                 isNext: false,
+                showAvatar: false,
               ),
             ],
           ),
