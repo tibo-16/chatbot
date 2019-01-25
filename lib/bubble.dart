@@ -4,44 +4,45 @@ class Bubble extends StatelessWidget {
   Bubble(
       {this.message,
       this.time,
-      this.isMe,
+      this.isUser,
       this.online,
       this.isNext,
-      this.showAvatar})
+      this.showAvatar,
+      this.username})
       : assert(message != "" && message != null),
-        assert(isMe != null),
+        assert(isUser != null),
         assert(online != null),
         assert(isNext != null),
         assert(showAvatar != null);
 
-  final String message;
+  final String message, username;
   final DateTime time;
-  final bool isMe, online, isNext, showAvatar;
+  final bool isUser, online, isNext, showAvatar;
 
   Color get bg {
-    return isMe ? Color.fromRGBO(25, 150, 254, 1.0) : Colors.white;
+    return isUser ? Color.fromRGBO(25, 150, 254, 1.0) : Colors.white;
   }
 
   Color get textColor {
-    return isMe ? Colors.white : Colors.black;
+    return isUser ? Colors.white : Colors.black;
   }
 
   CrossAxisAlignment get bubbleAlign {
-    return isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    return isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
   }
 
   MainAxisAlignment get rowAlign {
-    return isMe ? MainAxisAlignment.end : MainAxisAlignment.start;
+    return isUser ? MainAxisAlignment.end : MainAxisAlignment.start;
   }
 
   EdgeInsets get timeMargin {
-    return isMe
+    return isUser
         ? const EdgeInsets.only(top: 2.0, right: 3.0)
         : const EdgeInsets.only(top: 2.0, left: 3.0);
   }
 
   BorderRadius get radius {
-    return isMe
+    return isUser
         ? BorderRadius.only(
             topLeft: Radius.circular(10.0),
             bottomLeft: Radius.circular(10.0),
@@ -71,7 +72,7 @@ class Bubble extends StatelessWidget {
 
   Widget buildAvatar() {
     return Container(
-      margin: isMe
+      margin: isUser
           ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
           : const EdgeInsets.only(right: 3.0, bottom: 3.0),
       constraints: BoxConstraints(minWidth: 50.0, maxWidth: 50.0),
@@ -84,6 +85,20 @@ class Bubble extends StatelessWidget {
                 image: DecorationImage(
                     image: AssetImage('images/avatar.png'),
                     fit: BoxFit.scaleDown))),
+      ),
+    );
+  }
+
+  Widget buildUsername() {
+    if (username == null || username == "") return Container();
+
+    return Container(
+      margin: isUser
+          ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
+          : const EdgeInsets.only(right: 3.0, bottom: 3.0),
+      child: Text(
+        username,
+        style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
       ),
     );
   }
@@ -143,7 +158,10 @@ class Bubble extends StatelessWidget {
         children: <Widget>[buildAvatar(), buildBubbleColumn(context)],
       );
     } else {
-      return buildBubbleColumn(context);
+      return Column(
+        crossAxisAlignment: bubbleAlign,
+        children: <Widget>[buildUsername(), buildBubbleColumn(context)],
+      );
     }
   }
 }
