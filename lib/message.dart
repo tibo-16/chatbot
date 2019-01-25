@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Bubble extends StatelessWidget {
-  Bubble(
+class Message extends StatelessWidget {
+  Message(
       {this.message,
       this.time,
       this.isUser,
