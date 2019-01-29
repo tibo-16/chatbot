@@ -1,4 +1,6 @@
 import 'package:chatbot/message.dart';
+import 'package:chatbot/message_list_model.dart';
+import 'package:chatbot/message_bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -25,11 +27,13 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  MessageListModel<Message> _list;
+
   final TextEditingController _textEditingController =
       new TextEditingController();
   bool _isComposingMessage = false;
 
-  List<Message> _messages = [
+  List<Message> _initialMessages = [
     Message(
       message: 'Wie kann ich dir helfen?',
       showAvatar: true,
@@ -46,6 +50,16 @@ class _ChatScreenState extends State<ChatScreen> {
       isNext: false,
     )
   ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _list = MessageListModel<Message>(
+      listKey: _listKey,
+      initialItems: _initialMessages,
+    );
+  }
 
   IconButton getDefaultSendButton() {
     return new IconButton(
@@ -94,19 +108,28 @@ class _ChatScreenState extends State<ChatScreen> {
 
   _textMessageSubmitted(String text) {
     _textEditingController.clear();
-    FocusScope.of(context).requestFocus(new FocusNode());
+
+    Message message = Message(
+      message: text,
+      time: DateTime.now(),
+      isUser: true,
+      online: true,
+      isNext: false,
+      showAvatar: false,
+      username: 'Tobi',
+    );
+    Message lastMessage = _list[0];
+
+    if (lastMessage.isUser) {
+      lastMessage.time = null;
+      message.isNext = true;
+      message.username = null;
+    }
 
     setState(() {
       _isComposingMessage = false;
 
-      _messages.add(Message(
-          message: text,
-          time: DateTime.now(),
-          isUser: true,
-          online: true,
-          isNext: false,
-          showAvatar: false,
-          username: 'Tobi'));
+      _list.insert(0, message);
     });
   }
 
@@ -128,10 +151,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: AnimatedList(
                     key: _listKey,
                     reverse: true,
-                    initialItemCount: _messages.length,
+                    initialItemCount: _list.length,
                     itemBuilder: (BuildContext context, int index,
                         Animation<double> animation) {
-                      return _messages[index];
+                      return MessageBubble(
+                        message: _list[index],
+                        animation: animation,
+                      );
                     },
                   ),
                 ),
