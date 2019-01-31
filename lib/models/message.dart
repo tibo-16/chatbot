@@ -1,6 +1,7 @@
+import 'package:chatbot/models/content.dart';
 import 'package:flutter/material.dart';
 
-class Message {
+class Message implements Content {
   String text;
   bool isUser;
   bool isNext;

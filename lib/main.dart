@@ -1,6 +1,10 @@
-import 'package:chatbot/message.dart';
-import 'package:chatbot/message_list_model.dart';
-import 'package:chatbot/message_bubble.dart';
+import 'dart:math';
+
+import 'package:chatbot/bubbles/bubble.dart';
+import 'package:chatbot/models/content.dart';
+import 'package:chatbot/models/message.dart';
+import 'package:chatbot/models/list_model.dart';
+import 'package:chatbot/models/picture.dart';
 import 'package:chatbot/text_composer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +32,9 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  MessageListModel<Message> _list;
+  ListModel<Content> _list;
 
-  List<Message> _initialMessages = [
+  List<Content> _initialContent = [
     Message(
       text: 'Wie kann ich dir helfen?',
       time: DateTime.now(),
@@ -48,28 +52,48 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
 
-    _list = MessageListModel<Message>(
+    _list = ListModel<Content>(
       listKey: _listKey,
-      initialItems: _initialMessages,
+      initialItems: _initialContent,
     );
   }
 
   _textMessageSubmitted(String text) {
-    Message message = Message(
+    Message userMessage = Message(
       text: text,
       time: DateTime.now(),
       isUser: true,
       isNext: false,
     );
-    Message lastMessage = _list.first;
 
-    if (lastMessage.isUser) {
-      lastMessage.time = null;
-      message.isNext = true;
+    Content lastContent = _list.first;
+
+    if (lastContent.isUser) {
+      lastContent.time = null;
+      userMessage.isNext = true;
     }
 
+    // Message botMessage = Message(
+    //     text: 'Das ist aber toll!',
+    //     time: DateTime.now(),
+    //     isUser: false,
+    //     isNext: false);
+
+    Picture botPicture = Picture(
+        file: 'images/avatar.png',
+        message: 'Ich fühl mich SUPI :)',
+        isUser: false,
+        isNext: false,
+        time: DateTime.now());
+
+    Random random = new Random(1);
+    int randomDuration = 250 + random.nextInt(1000 - 250);
+
     setState(() {
-      _list.insert(0, message);
+      _list.insert(0, userMessage);
+
+      Future.delayed(Duration(milliseconds: randomDuration),
+          () => _list.insert(0, botPicture));
     });
   }
 
@@ -94,8 +118,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     initialItemCount: _list.length,
                     itemBuilder: (BuildContext context, int index,
                         Animation<double> animation) {
-                      return MessageBubble(
-                        message: _list[index],
+                      return Bubble(
+                        content: _list[index],
                         animation: animation,
                       );
                     },

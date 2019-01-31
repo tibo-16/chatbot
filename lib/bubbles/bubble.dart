@@ -1,50 +1,53 @@
+import 'package:chatbot/bubbles/message_bubble.dart';
+import 'package:chatbot/bubbles/picture_bubble.dart';
 import 'package:chatbot/constants.dart';
-import 'package:chatbot/message.dart';
+import 'package:chatbot/models/content.dart';
+import 'package:chatbot/models/message.dart';
 import 'package:flutter/material.dart';
 
-class MessageBubble extends StatelessWidget {
-  MessageBubble({Key key, @required this.message, @required this.animation})
-      : assert(message != null),
+class Bubble extends StatelessWidget {
+  Bubble({Key key, @required this.content, @required this.animation})
+      : assert(content != null),
         assert(animation != null),
         super(key: key);
 
-  final Message message;
+  final Content content;
   final Animation<double> animation;
 
   Color get bg {
-    return message.isUser ? Color.fromRGBO(25, 150, 254, 1.0) : Colors.white;
+    return content.isUser ? Constants.BUBBLE_COLOR : Colors.white;
   }
 
   Color get textColor {
-    return message.isUser ? Colors.white : Colors.black;
+    return content.isUser ? Colors.white : Colors.black;
   }
 
   CrossAxisAlignment get bubbleAlign {
-    return message.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
+    return content.isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start;
   }
 
   MainAxisAlignment get rowAlign {
-    return message.isUser ? MainAxisAlignment.end : MainAxisAlignment.start;
+    return content.isUser ? MainAxisAlignment.end : MainAxisAlignment.start;
   }
 
   EdgeInsets get timeMargin {
-    return message.isUser
+    return content.isUser
         ? const EdgeInsets.only(top: 2.0, right: 3.0)
         : const EdgeInsets.only(top: 2.0, left: 3.0);
   }
 
   BorderRadius get radius {
-    return message.isUser
+    return content.isUser
         ? BorderRadius.only(
             topLeft: Radius.circular(10.0),
             bottomLeft: Radius.circular(10.0),
             bottomRight: Radius.circular(10.0),
-            topRight: message.isNext ? Radius.circular(10.0) : Radius.zero)
+            topRight: content.isNext ? Radius.circular(10.0) : Radius.zero)
         : BorderRadius.only(
             topRight: Radius.circular(10.0),
             bottomLeft: Radius.circular(10.0),
             bottomRight: Radius.circular(10.0),
-            topLeft: message.isNext ? Radius.circular(10.0) : Radius.zero);
+            topLeft: content.isNext ? Radius.circular(10.0) : Radius.zero);
   }
 
   List<BoxShadow> get shadow {
@@ -56,54 +59,62 @@ class MessageBubble extends StatelessWidget {
     ];
   }
 
-  String get paddedTime {
-    if (message.time == null) return "";
-
-    return '${message.time.hour.toString().padLeft(2, '0')}:${message.time.minute.toString().padLeft(2, '0')}';
-  }
-
   Alignment get animationAlign {
-    return message.isUser ? Alignment.topRight : Alignment.topLeft;
+    return content.isUser ? Alignment.topRight : Alignment.topLeft;
   }
 
-  Widget buildBubbleColumn(BuildContext context) {
+  String get paddedTime {
+    if (content.time == null) return "";
+
+    return '${content.time.hour.toString().padLeft(2, '0')}:${content.time.minute.toString().padLeft(2, '0')}';
+  }
+
+  Widget _buildChild() {
+    if (content is Message) {
+      return MessageBubble(
+        message: content,
+        animation: animation,
+        shadow: shadow,
+        bg: bg,
+        radius: radius,
+        textColor: textColor,
+      );
+    } else {
+      return PictureBubble(
+        picture: content,
+        animation: animation,
+        shadow: shadow,
+        bg: bg,
+        radius: radius,
+        textColor: textColor,
+      );
+    }
+  }
+
+  Widget _buildBubbleColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: bubbleAlign,
       children: <Widget>[
         Visibility(
-          visible: !message.isNext,
+          visible: !content.isNext,
           child: Column(
             crossAxisAlignment: bubbleAlign,
             children: <Widget>[
               Container(
-                margin: message.isUser
+                margin: content.isUser
                     ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
                     : const EdgeInsets.only(right: 3.0, bottom: 3.0),
                 child: Text(
-                  message.isUser ? Constants.USERNAME : Constants.CHATBOT_NAME,
+                  content.isUser ? Constants.USERNAME : Constants.CHATBOT_NAME,
                   style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
                 ),
               ),
             ],
           ),
         ),
-        Container(
-          constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.80),
-          margin: const EdgeInsets.all(2.0),
-          padding: const EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            boxShadow: shadow,
-            color: bg,
-            borderRadius: radius,
-          ),
-          child: Text(
-            message.text,
-            style: TextStyle(color: textColor),
-          ),
-        ),
+        _buildChild(),
         Visibility(
-          visible: message.time != null,
+          visible: content.time != null,
           child: Container(
             margin: timeMargin,
             child: Row(
@@ -133,7 +144,7 @@ class MessageBubble extends StatelessWidget {
   Widget _buildMessageWidget(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[buildBubbleColumn(context)],
+      children: <Widget>[_buildBubbleColumn(context)],
     );
   }
 

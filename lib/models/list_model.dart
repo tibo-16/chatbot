@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MessageListModel<E> {
-  MessageListModel({@required this.listKey, Iterable<E> initialItems})
+class ListModel<E> {
+  ListModel({@required this.listKey, Iterable<E> initialItems})
       : assert(listKey != null),
         _items = List<E>.from(initialItems ?? <E>[]);
 
