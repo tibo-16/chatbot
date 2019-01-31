@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:chatbot/bubbles/bubble.dart';
+import 'package:chatbot/models/buttons.dart';
 import 'package:chatbot/models/content.dart';
 import 'package:chatbot/models/message.dart';
 import 'package:chatbot/models/list_model.dart';
-import 'package:chatbot/models/picture.dart';
 import 'package:chatbot/text_composer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,9 +79,19 @@ class _ChatScreenState extends State<ChatScreen> {
     //     isUser: false,
     //     isNext: false);
 
-    Picture botPicture = Picture(
-        file: 'images/avatar.png',
-        message: 'Ich fühl mich SUPI :)',
+    // Picture botPicture = Picture(
+    //     file: 'images/avatar.png',
+    //     message: 'Ich fühl mich SUPI :)',
+    //     isUser: false,
+    //     isNext: false,
+    //     time: DateTime.now());
+
+    List<String> texts = ['Erster Button', 'Zweiter Button'];
+    List<Function> functions = [() => print('one'), () => print('two')];
+
+    Buttons botButtons = Buttons(
+        texts: texts,
+        functions: functions,
         isUser: false,
         isNext: false,
         time: DateTime.now());
@@ -93,7 +103,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _list.insert(0, userMessage);
 
       Future.delayed(Duration(milliseconds: randomDuration),
-          () => _list.insert(0, botPicture));
+          () => _list.insert(0, botButtons));
     });
   }
 

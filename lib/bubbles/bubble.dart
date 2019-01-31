@@ -1,8 +1,10 @@
+import 'package:chatbot/bubbles/buttons_bubble.dart';
 import 'package:chatbot/bubbles/message_bubble.dart';
 import 'package:chatbot/bubbles/picture_bubble.dart';
 import 'package:chatbot/constants.dart';
 import 'package:chatbot/models/content.dart';
 import 'package:chatbot/models/message.dart';
+import 'package:chatbot/models/picture.dart';
 import 'package:flutter/material.dart';
 
 class Bubble extends StatelessWidget {
@@ -79,9 +81,18 @@ class Bubble extends StatelessWidget {
         radius: radius,
         textColor: textColor,
       );
-    } else {
+    } else if (content is Picture) {
       return PictureBubble(
         picture: content,
+        animation: animation,
+        shadow: shadow,
+        bg: bg,
+        radius: radius,
+        textColor: textColor,
+      );
+    } else {
+      return ButtonsBubble(
+        buttons: content,
         animation: animation,
         shadow: shadow,
         bg: bg,
