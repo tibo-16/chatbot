@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Message {
-  String message;
-  DateTime time;
+  String text;
   bool isUser;
-  bool online;
   bool isNext;
-  bool showAvatar;
-  String username;
+
+  DateTime time;
 
   Message(
-      {@required this.message,
+      {@required this.text,
       @required this.isUser,
       @required this.isNext,
-      @required this.showAvatar,
-      this.time,
-      this.online,
-      this.username})
-      : assert(message != null),
+      this.time})
+      : assert(text != null),
         assert(isUser != null),
-        assert(isNext != null),
-        assert(showAvatar != null);
+        assert(isNext != null);
 }

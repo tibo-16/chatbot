@@ -19,4 +19,6 @@ class MessageListModel<E> {
   List<E> get items => _items;
   E operator [](int index) => _items[index];
   int indexOf(E item) => _items.indexOf(item);
+  E get first => _items[0];
+  E get last => _items[_items.length - 1];
 }

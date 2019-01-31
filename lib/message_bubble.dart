@@ -1,3 +1,4 @@
+import 'package:chatbot/constants.dart';
 import 'package:chatbot/message.dart';
 import 'package:flutter/material.dart';
 
@@ -61,46 +62,34 @@ class MessageBubble extends StatelessWidget {
     return '${message.time.hour.toString().padLeft(2, '0')}:${message.time.minute.toString().padLeft(2, '0')}';
   }
 
-  Widget buildAvatar() {
-    return Container(
-      margin: message.isUser
-          ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
-          : const EdgeInsets.only(right: 3.0, bottom: 3.0),
-      constraints: BoxConstraints(minWidth: 50.0, maxWidth: 50.0),
-      child: AspectRatio(
-        aspectRatio: 1.0,
-        child: Container(
-            decoration: BoxDecoration(
-                boxShadow: shadow,
-                borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                image: DecorationImage(
-                    image: AssetImage('images/avatar.png'),
-                    fit: BoxFit.scaleDown))),
-      ),
-    );
-  }
-
-  Widget buildUsername() {
-    if (message.username == null || message.username == "") return Container();
-
-    return Container(
-      margin: message.isUser
-          ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
-          : const EdgeInsets.only(right: 3.0, bottom: 3.0),
-      child: Text(
-        message.username,
-        style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-      ),
-    );
+  Alignment get animationAlign {
+    return message.isUser ? Alignment.topRight : Alignment.topLeft;
   }
 
   Widget buildBubbleColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: bubbleAlign,
       children: <Widget>[
+        Visibility(
+          visible: !message.isNext,
+          child: Column(
+            crossAxisAlignment: bubbleAlign,
+            children: <Widget>[
+              Container(
+                margin: message.isUser
+                    ? const EdgeInsets.only(left: 3.0, bottom: 3.0)
+                    : const EdgeInsets.only(right: 3.0, bottom: 3.0),
+                child: Text(
+                  message.isUser ? Constants.USERNAME : Constants.CHATBOT_NAME,
+                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                ),
+              ),
+            ],
+          ),
+        ),
         Container(
           constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.75),
+              maxWidth: MediaQuery.of(context).size.width * 0.80),
           margin: const EdgeInsets.all(2.0),
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
@@ -109,7 +98,7 @@ class MessageBubble extends StatelessWidget {
             borderRadius: radius,
           ),
           child: Text(
-            message.message,
+            message.text,
             style: TextStyle(color: textColor),
           ),
         ),
@@ -130,9 +119,7 @@ class MessageBubble extends StatelessWidget {
                 SizedBox(width: 3.0),
                 Icon(
                   Icons.brightness_1,
-                  color: message.online
-                      ? Colors.green.shade300
-                      : Colors.red.shade400,
+                  color: Colors.green.shade300,
                   size: 8,
                 )
               ],
@@ -144,25 +131,19 @@ class MessageBubble extends StatelessWidget {
   }
 
   Widget _buildMessageWidget(BuildContext context) {
-    if (message.showAvatar && !message.isNext) {
-      return Column(
-        crossAxisAlignment: bubbleAlign,
-        children: <Widget>[buildAvatar(), buildBubbleColumn(context)],
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: bubbleAlign,
-        children: <Widget>[buildUsername(), buildBubbleColumn(context)],
-      );
-    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[buildBubbleColumn(context)],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SizeTransition(
-      axis: Axis.vertical,
-      sizeFactor: animation,
-      child: _buildMessageWidget(context),
+    return ScaleTransition(
+      alignment: animationAlign,
+      scale: animation,
+      child: FadeTransition(
+          opacity: animation, child: _buildMessageWidget(context)),
     );
   }
 }
