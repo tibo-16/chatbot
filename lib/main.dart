@@ -61,49 +61,62 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  IconButton getDefaultSendButton() {
-    return new IconButton(
-      icon: new Icon(Icons.send),
-      onPressed: _isComposingMessage
-          ? () => _textMessageSubmitted(_textEditingController.text)
-          : null,
+  Widget _buildSendButton() {
+    return Container(
+      constraints: BoxConstraints(maxHeight: 36.0, maxWidth: 36.0),
+      child: FlatButton(
+        padding: EdgeInsets.all(0),
+        color: Theme.of(context).accentColor,
+        disabledColor: Theme.of(context).disabledColor,
+        child: Icon(
+          Icons.arrow_upward,
+          color: Colors.white,
+        ),
+        shape: CircleBorder(),
+        onPressed: _isComposingMessage
+            ? () => _textMessageSubmitted(_textEditingController.text)
+            : null,
+      ),
     );
   }
 
   Widget _buildTextComposer() {
-    return new IconTheme(
-        data: new IconThemeData(
-          color: _isComposingMessage
-              ? Theme.of(context).accentColor
-              : Theme.of(context).disabledColor,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: new Container(
-            child: new Row(
-              children: <Widget>[
-                new Flexible(
-                  child: new TextField(
-                    style: TextStyle(color: Colors.black, fontSize: 14),
-                    maxLines: null,
-                    textInputAction: TextInputAction.newline,
-                    controller: _textEditingController,
-                    onChanged: (String messageText) {
-                      setState(() {
-                        _isComposingMessage = messageText.length > 0;
-                      });
-                    },
-                    decoration: new InputDecoration.collapsed(
-                        hintText: "Was möchtest du Bot fragen?"),
-                  ),
+    return new Container(
+      padding: EdgeInsets.all(8.0),
+      child: new Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          new Flexible(
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.white),
+              child: new TextField(
+                cursorRadius: Radius.circular(10.0),
+                style: TextStyle(color: Colors.black, fontSize: 14),
+                maxLines: null,
+                autocorrect: false,
+                textInputAction: TextInputAction.newline,
+                controller: _textEditingController,
+                onChanged: (String messageText) {
+                  setState(() {
+                    _isComposingMessage = messageText.length > 0;
+                  });
+                },
+                decoration: InputDecoration.collapsed(
+                  hintText: 'Was möchtest du fragen?',
                 ),
-                new Container(
-                  child: getDefaultSendButton(),
-                ),
-              ],
+              ),
             ),
           ),
-        ));
+          SizedBox(
+            width: 8.0,
+          ),
+          _buildSendButton(),
+        ],
+      ),
+    );
   }
 
   _textMessageSubmitted(String text) {
@@ -163,7 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               Divider(
-                height: 1.0,
+                height: 2.0,
                 color: Colors.black26,
               ),
               Container(
