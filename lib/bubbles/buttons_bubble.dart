@@ -27,15 +27,21 @@ class ButtonsBubble extends StatelessWidget {
   List<Widget> _buildButtons(BuildContext context) {
     List<Widget> buttonWidgets = [];
 
-    for (int i = 0; i < buttons.texts.length; i++) {
-      FlatButton widget = FlatButton(
-        color: Theme.of(context).accentColor,
-        textColor: Colors.white,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        child: Text(buttons.texts[i]),
-        onPressed: buttons.functions[i],
-      );
+    int length = buttons.texts.length;
+    for (int i = 0; i < length; i++) {
+      Padding widget = Padding(
+          padding: (i < length - 1)
+              ? const EdgeInsets.only(bottom: 5.0)
+              : const EdgeInsets.all(0),
+          child: FlatButton(
+            color: Theme.of(context).accentColor,
+            textColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Text(buttons.texts[i]),
+            onPressed: buttons.functions[i],
+            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          ));
       buttonWidgets.add(widget);
     }
 

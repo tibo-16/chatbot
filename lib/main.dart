@@ -73,12 +73,6 @@ class _ChatScreenState extends State<ChatScreen> {
       userMessage.isNext = true;
     }
 
-    // Message botMessage = Message(
-    //     text: 'Das ist aber toll!',
-    //     time: DateTime.now(),
-    //     isUser: false,
-    //     isNext: false);
-
     // Picture botPicture = Picture(
     //     file: 'images/avatar.png',
     //     message: 'Ich fühl mich SUPI :)',
@@ -86,14 +80,19 @@ class _ChatScreenState extends State<ChatScreen> {
     //     isNext: false,
     //     time: DateTime.now());
 
-    List<String> texts = ['Erster Button', 'Zweiter Button'];
+    Message botMessage = Message(
+        text: 'Welche Nachrichten möchtest du sehen?',
+        isUser: false,
+        isNext: false);
+
+    List<String> texts = ['Neuste Nachrichten', 'Top Nachrichten'];
     List<Function> functions = [() => print('one'), () => print('two')];
 
     Buttons botButtons = Buttons(
         texts: texts,
         functions: functions,
         isUser: false,
-        isNext: false,
+        isNext: true,
         time: DateTime.now());
 
     Random random = new Random(1);
@@ -103,7 +102,10 @@ class _ChatScreenState extends State<ChatScreen> {
       _list.insert(0, userMessage);
 
       Future.delayed(Duration(milliseconds: randomDuration),
-          () => _list.insert(0, botButtons));
+          () {
+            _list.insert(0, botMessage);
+            _list.insert(0, botButtons);
+          } );
     });
   }
 
