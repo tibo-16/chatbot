@@ -31,6 +31,8 @@ class ButtonsBubble extends StatelessWidget {
       FlatButton widget = FlatButton(
         color: Theme.of(context).accentColor,
         textColor: Colors.white,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         child: Text(buttons.texts[i]),
         onPressed: buttons.functions[i],
       );
