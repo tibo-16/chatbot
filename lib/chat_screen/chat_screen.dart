@@ -20,19 +20,7 @@ class _ChatScreenState extends State<ChatScreen> {
   final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   ListModel<Content> _list;
 
-  List<Content> _initialContent = [
-    Message(
-      text: 'Wie kann ich dir helfen?',
-      time: DateTime.now(),
-      isUser: false,
-      isNext: true,
-    ),
-    Message(
-      text: 'Hi! Mein Name ist Bot.',
-      isUser: false,
-      isNext: false,
-    )
-  ];
+  List<Content> _initialContent = [];
 
   @override
   void initState() {
@@ -42,6 +30,24 @@ class _ChatScreenState extends State<ChatScreen> {
       listKey: _listKey,
       initialItems: _initialContent,
     );
+
+    Future.delayed(const Duration(microseconds: 750), () {
+      _list.insert(
+          0,
+          Message(
+            text: 'Hi! Mein Name ist ${Constants.CHATBOT_NAME}.',
+            isUser: false,
+            isNext: false,
+          ));
+      _list.insert(
+          0,
+          Message(
+            text: 'Wie kann ich dir helfen?',
+            time: DateTime.now(),
+            isUser: false,
+            isNext: true,
+          ));
+    });
   }
 
   _textMessageSubmitted(String text) {
@@ -103,7 +109,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: GradientAppBar(
         backgroundColorStart: Theme.of(context).primaryColor,
-        backgroundColorEnd: Color.fromRGBO(0, 153, 153, 1.0),
+        backgroundColorEnd: Constants.SIEMENS_COLOR,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
