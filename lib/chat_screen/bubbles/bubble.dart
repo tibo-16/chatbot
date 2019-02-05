@@ -1,10 +1,10 @@
-import 'package:chatbot/bubbles/buttons_bubble.dart';
-import 'package:chatbot/bubbles/message_bubble.dart';
-import 'package:chatbot/bubbles/picture_bubble.dart';
+import 'package:chatbot/chat_screen/bubbles/buttons_bubble.dart';
+import 'package:chatbot/chat_screen/bubbles/message_bubble.dart';
+import 'package:chatbot/chat_screen/bubbles/picture_bubble.dart';
+import 'package:chatbot/chat_screen/models/content.dart';
+import 'package:chatbot/chat_screen/models/message.dart';
+import 'package:chatbot/chat_screen/models/picture.dart';
 import 'package:chatbot/constants.dart';
-import 'package:chatbot/models/content.dart';
-import 'package:chatbot/models/message.dart';
-import 'package:chatbot/models/picture.dart';
 import 'package:flutter/material.dart';
 
 class Bubble extends StatelessWidget {

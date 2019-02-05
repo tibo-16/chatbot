@@ -1,4 +1,4 @@
-import 'package:chatbot/models/buttons.dart';
+import 'package:chatbot/chat_screen/models/buttons.dart';
 import 'package:flutter/material.dart';
 
 class ButtonsBubble extends StatelessWidget {

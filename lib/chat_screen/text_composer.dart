@@ -22,19 +22,20 @@ class _TextComposerState extends State<TextComposer> {
     });
   }
 
-  Widget _buildSendButton() {
+  _submitVoice() {}
+
+  Widget _buildRightButton() {
     return Container(
       constraints: BoxConstraints(maxHeight: 36.0, maxWidth: 36.0),
       child: FlatButton(
         padding: EdgeInsets.all(0),
         color: Theme.of(context).accentColor,
-        disabledColor: Theme.of(context).disabledColor,
         child: Icon(
-          Icons.arrow_upward,
+          _isComposingMessage ? Icons.arrow_upward : Icons.mic,
           color: Colors.white,
         ),
         shape: CircleBorder(),
-        onPressed: _isComposingMessage ? _submitText : null,
+        onPressed: _isComposingMessage ? _submitText : _submitVoice,
       ),
     );
   }
@@ -73,7 +74,7 @@ class _TextComposerState extends State<TextComposer> {
           SizedBox(
             width: 8.0,
           ),
-          _buildSendButton(),
+          _buildRightButton(),
         ],
       ),
     );

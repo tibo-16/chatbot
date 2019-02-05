@@ -1,4 +1,4 @@
-import 'package:chatbot/models/message.dart';
+import 'package:chatbot/chat_screen/models/message.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubble extends StatelessWidget {

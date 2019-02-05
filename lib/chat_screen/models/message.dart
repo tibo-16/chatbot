@@ -1,4 +1,4 @@
-import 'package:chatbot/models/content.dart';
+import 'package:chatbot/chat_screen/models/content.dart';
 import 'package:flutter/material.dart';
 
 class Message implements Content {

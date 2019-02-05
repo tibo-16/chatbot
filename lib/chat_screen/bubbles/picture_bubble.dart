@@ -1,4 +1,4 @@
-import 'package:chatbot/models/picture.dart';
+import 'package:chatbot/chat_screen/models/picture.dart';
 import 'package:flutter/material.dart';
 
 class PictureBubble extends StatelessWidget {
