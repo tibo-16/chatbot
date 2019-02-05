@@ -114,6 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: GradientAppBar(
+        automaticallyImplyLeading: false,
         backgroundColorStart: Theme.of(context).primaryColor,
         backgroundColorEnd: Constants.SIEMENS_COLOR,
         title: Row(

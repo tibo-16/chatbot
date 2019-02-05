@@ -13,6 +13,7 @@ class _TextComposerState extends State<TextComposer> {
   final TextEditingController _textEditingController =
       new TextEditingController();
   bool _isComposingMessage = false;
+  bool _isUsingVoice = false;
 
   _submitText() {
     widget.submitText(_textEditingController.text);
@@ -22,20 +23,45 @@ class _TextComposerState extends State<TextComposer> {
     });
   }
 
-  _submitVoice() {}
+  _submitVoice() {
+    setState(() {
+      _isUsingVoice = !_isUsingVoice;
+    });
+
+    if (_isUsingVoice) {
+      // Write Fake Text
+    }
+  }
+
+  Icon get icon {
+    if (_isUsingVoice)
+      return Icon(
+        Icons.close,
+        color: Colors.redAccent,
+      );
+    else if (_isComposingMessage)
+      return Icon(
+        Icons.arrow_upward,
+        color: Colors.white,
+      );
+    else
+      return Icon(
+        Icons.mic,
+        color: Colors.white,
+      );
+  }
 
   Widget _buildRightButton() {
     return Container(
       constraints: BoxConstraints(maxHeight: 36.0, maxWidth: 36.0),
       child: FlatButton(
         padding: EdgeInsets.all(0),
-        color: Theme.of(context).accentColor,
-        child: Icon(
-          _isComposingMessage ? Icons.arrow_upward : Icons.mic,
-          color: Colors.white,
-        ),
+        color:
+            !_isUsingVoice ? Theme.of(context).accentColor : Colors.transparent,
+        child: icon,
         shape: CircleBorder(),
-        onPressed: _isComposingMessage ? _submitText : _submitVoice,
+        onPressed:
+            !_isUsingVoice && _isComposingMessage ? _submitText : _submitVoice,
       ),
     );
   }
