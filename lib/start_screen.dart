@@ -9,7 +9,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartScreenState extends State<StartScreen> {
   _showChat() {
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
             maintainState: false,

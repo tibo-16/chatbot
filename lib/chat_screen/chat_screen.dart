@@ -8,6 +8,7 @@ import 'package:chatbot/chat_screen/models/message.dart';
 import 'package:chatbot/chat_screen/models/picture.dart';
 import 'package:chatbot/chat_screen/text_composer.dart';
 import 'package:chatbot/constants.dart';
+import 'package:chatbot/evaluation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_app_bar/gradient_app_bar.dart';
 
@@ -35,14 +36,14 @@ class _ChatScreenState extends State<ChatScreen> {
       _list.insert(
           0,
           Message(
-            text: 'Hi! Mein Name ist ${Constants.CHATBOT_NAME}.',
+            text: 'Hi! Ich bin ${Constants.CHATBOT_NAME}.',
             isUser: false,
             isNext: false,
           ));
       _list.insert(
           0,
           Message(
-            text: 'Wie kann ich dir helfen?',
+            text: 'Wie kann ich dir behilflich sein?',
             time: DateTime.now(),
             isUser: false,
             isNext: true,
@@ -101,7 +102,12 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   _showEvaluation() {
-    print('Starte Evaluation');
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            maintainState: false,
+            fullscreenDialog: true,
+            builder: (context) => EvaluationScreen()));
   }
 
   @override
