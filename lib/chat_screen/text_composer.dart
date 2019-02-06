@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TextComposer extends StatefulWidget {
@@ -30,6 +32,21 @@ class _TextComposerState extends State<TextComposer> {
 
     if (_isUsingVoice) {
       // Write Fake Text
+      _textEditingController.clear();
+      List<String> fakeText =
+          'Zeige mir den Aktienkurs der letzten drei Monate'.split(' ');
+      Random random = new Random(1);
+
+      for (int i = 1; i <= fakeText.length; i++) {
+        int minimum = i * 300;
+        int randomDuration = minimum + random.nextInt(500);
+
+        Future.delayed(Duration(milliseconds: randomDuration), () {
+          setState(() {
+            _textEditingController.text += fakeText[i - 1] + ' ';
+          });
+        });
+      }
     }
   }
 
