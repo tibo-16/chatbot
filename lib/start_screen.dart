@@ -42,6 +42,7 @@ class _StartScreenState extends State<StartScreen> {
                 height: size,
                 width: size,
               ),
+              Container(height: 20,),
               Text(
                 Constants.CHATBOT_NAME,
                 style: TextStyle(

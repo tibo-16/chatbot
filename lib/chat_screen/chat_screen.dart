@@ -120,7 +120,8 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/avatar.png'),
+            Image.asset('images/avatar.png', height: 40, width: 40,),
+            Container(width: 5,),
             Text(
               Constants.CHATBOT_NAME,
               style: TextStyle(
