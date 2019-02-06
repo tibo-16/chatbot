@@ -8,6 +8,8 @@ class EvaluationScreen extends StatefulWidget {
 
 class _EvaluationScreenState extends State<EvaluationScreen> {
   List<bool> highlightedStars = [false, false, false, false, false];
+  bool upSelected = false;
+  bool downSelected = false;
 
   _showStart() {
     Navigator.pop(context);
@@ -23,6 +25,20 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
     setState(() {
       highlightedStars = newHighlights;
     });
+  }
+
+  _selectThumb(bool up) {
+    if (up) {
+      setState(() {
+        upSelected = true;
+        downSelected = false;
+      });
+    } else {
+      setState(() {
+        upSelected = false;
+        downSelected = true;
+      });
+    }
   }
 
   @override
@@ -56,7 +72,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
               ),
               Text(
                 'Wie hat Dir der Chat mit Simbo gefallen?',
-                style: TextStyle(color: Colors.white70),
+                style: TextStyle(color: Colors.white),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -95,6 +111,30 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                     onPressed: () => _highlightStars(4),
                     iconSize: 36,
                     color: Constants.DARK_BLUE,
+                  ),
+                ],
+              ),
+              Container(
+                height: 30,
+              ),
+              Text(
+                'Konnte Simbo alle deine Frage beantworten?',
+                style: TextStyle(color: Colors.white),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.thumb_up),
+                    onPressed: () => _selectThumb(true),
+                    iconSize: 36,
+                    color: upSelected ? Constants.DARK_BLUE : Colors.white,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.thumb_down),
+                    onPressed: () => _selectThumb(false),
+                    iconSize: 36,
+                    color: downSelected ? Constants.DARK_BLUE : Colors.white,
                   ),
                 ],
               ),
