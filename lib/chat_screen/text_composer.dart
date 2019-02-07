@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class TextComposer extends StatefulWidget {
@@ -24,28 +26,30 @@ class _TextComposerState extends State<TextComposer> {
   }
 
   _submitVoice() {
-    // setState(() {
-    //   _isUsingVoice = !_isUsingVoice;
-    // });
+    setState(() {
+      _isUsingVoice = !_isUsingVoice;
+    });
 
-    // if (_isUsingVoice) {
-    //   // Write Fake Text
-    //   _textEditingController.clear();
-    //   List<String> fakeText =
-    //       'Zeige mir den Aktienkurs der letzten drei Monate'.split(' ');
-    //   Random random = new Random(1);
+    if (_isUsingVoice) {
+      // Write Fake Text
+      _textEditingController.clear();
+      List<String> fakeText =
+          'Zeige mir den Aktienkurs der letzten drei Monate'.split(' ');
+      Random random = new Random(1);
 
-    //   for (int i = 1; i <= fakeText.length; i++) {
-    //     int minimum = i * 400;
-    //     int randomDuration = minimum + random.nextInt(200);
+      for (int i = 1; i <= fakeText.length; i++) {
+        int minimum = i * 400;
+        int randomDuration = minimum + random.nextInt(200);
 
-    //     Future.delayed(Duration(milliseconds: randomDuration), () {
-    //       setState(() {
-    //         _textEditingController.text += fakeText[i - 1] + ' ';
-    //       });
-    //     });
-    //   }
-    // }
+        Future.delayed(Duration(milliseconds: randomDuration), () {
+          setState(() {
+            _textEditingController.text += fakeText[i - 1] + ' ';
+          });
+        });
+      }
+    } else {
+      _submitText();
+    }
   }
 
   Icon get icon {
