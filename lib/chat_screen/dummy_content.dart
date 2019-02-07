@@ -19,9 +19,10 @@ class Dummy {
         'Nachrichten aus meinem Fachbereich'
       ], function: function, isNext: true, isUser: false),
       User(),
+      Message(text: 'Alles klar 👍🏻', isNext: false, isUser: false),
       Message(
-          text: 'Alles klar 👍🏻\nHier ist eine der neusten Nachrichten:',
-          isNext: false,
+          text: 'Hier ist eine der neusten Nachrichten:',
+          isNext: true,
           isUser: false),
       Picture(
           file: 'images/siemens.jpg',
@@ -84,7 +85,7 @@ class Dummy {
           isNext: false,
           isUser: false),
       Buttons(
-          texts: ['Zeig mir den Aktienverlauf', 'Anderes Thema'],
+          texts: ['Zeige mir den Aktienverlauf', 'Anderes Thema'],
           function: function,
           isNext: true,
           isUser: false),
