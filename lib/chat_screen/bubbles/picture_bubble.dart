@@ -28,7 +28,7 @@ class PictureBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.50,
+          maxWidth: MediaQuery.of(context).size.width * 0.75,
           maxHeight: MediaQuery.of(context).size.height * 0.25),
       margin: const EdgeInsets.all(2.0),
       padding: const EdgeInsets.all(8.0),
@@ -45,7 +45,7 @@ class PictureBubble extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: DecorationImage(
-                    image: AssetImage(picture.file), fit: BoxFit.contain),
+                    image: AssetImage(picture.file), fit: BoxFit.cover),
               ),
             ),
           ),

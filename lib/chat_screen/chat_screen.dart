@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:chatbot/chat_screen/bubbles/bubble.dart';
-import 'package:chatbot/chat_screen/models/buttons.dart';
+import 'package:chatbot/chat_screen/dummy_content.dart';
 import 'package:chatbot/chat_screen/models/content.dart';
 import 'package:chatbot/chat_screen/models/list_model.dart';
 import 'package:chatbot/chat_screen/models/message.dart';
-import 'package:chatbot/chat_screen/models/picture.dart';
+import 'package:chatbot/chat_screen/models/user.dart';
 import 'package:chatbot/chat_screen/text_composer.dart';
 import 'package:chatbot/constants.dart';
 import 'package:chatbot/evaluation_screen.dart';
@@ -22,24 +20,42 @@ class _ChatScreenState extends State<ChatScreen> {
   ListModel<Content> _list;
 
   List<Content> _initialContent = [];
+  List<Content> dummyContent = [];
 
   @override
   void initState() {
     super.initState();
+
+    dummyContent = Dummy.initialize(_textMessageSubmitted);
 
     _list = ListModel<Content>(
       listKey: _listKey,
       initialItems: _initialContent,
     );
 
-    Future.delayed(const Duration(microseconds: 750), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       _list.insert(
           0,
           Message(
-            text: 'Hi! Ich bin ${Constants.CHATBOT_NAME}.',
+            text:
+                'Hallo ${Constants.USERNAME},\nIch bin ${Constants.CHATBOT_NAME} 🙂',
             isUser: false,
             isNext: false,
           ));
+    });
+
+    Future.delayed(const Duration(milliseconds: 1500), () {
+      _list.insert(
+          0,
+          Message(
+            text:
+                'Von mir bekommst du die aktuellsten Nachrichten und Informationen über den Aktienkurs.',
+            isUser: false,
+            isNext: true,
+          ));
+    });
+
+    Future.delayed(const Duration(milliseconds: 3000), () {
       _list.insert(
           0,
           Message(
@@ -66,39 +82,41 @@ class _ChatScreenState extends State<ChatScreen> {
       userMessage.isNext = true;
     }
 
-    Picture botPicture = Picture(
-        file: 'images/avatar.png',
-        message: 'Beispiel Text',
-        isUser: false,
-        isNext: false);
-
-    Message botMessage = Message(
-        text: 'Welche Nachrichten möchtest du sehen?',
-        isUser: false,
-        isNext: true);
-
-    List<String> texts = ['Neuste Nachrichten', 'Top Nachrichten'];
-    List<Function> functions = [() => print('one'), () => print('two')];
-
-    Buttons botButtons = Buttons(
-        texts: texts,
-        functions: functions,
-        isUser: false,
-        isNext: true,
-        time: DateTime.now());
-
-    Random random = new Random(1);
-    int randomDuration = 250 + random.nextInt(1000 - 250);
-
     setState(() {
       _list.insert(0, userMessage);
-
-      Future.delayed(Duration(milliseconds: randomDuration), () {
-        _list.insert(0, botPicture);
-        _list.insert(0, botMessage);
-        _list.insert(0, botButtons);
-      });
     });
+
+    _submitBotMessages();
+  }
+
+  _submitBotMessages() {
+    // Get Chatbot Dummy Messages
+    List<Content> botMessages = [];
+    int counter = 0;
+
+    for (int i = 0; i < dummyContent.length; i++) {
+      if (dummyContent[i] is User) {
+        break;
+      }
+      botMessages.add(dummyContent[i]);
+      counter++;
+    }
+
+    botMessages.last.time = DateTime.now();
+
+    for (int i = 0; i <= counter; i++) {
+      dummyContent.removeAt(0);
+    }
+
+    for (int i = 0; i < botMessages.length; i++) {
+      int minimum = 1000 + i * 1000;
+
+      Future.delayed(Duration(milliseconds: minimum), () {
+        setState(() {
+          _list.insert(0, botMessages[i]);
+        });
+      });
+    }
   }
 
   _showEvaluation() {
@@ -120,8 +138,14 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image.asset('images/avatar.png', height: 40, width: 40,),
-            Container(width: 5,),
+            Image.asset(
+              'images/avatar.png',
+              height: 40,
+              width: 40,
+            ),
+            Container(
+              width: 5,
+            ),
             Text(
               Constants.CHATBOT_NAME,
               style: TextStyle(

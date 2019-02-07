@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class Buttons implements Content {
   List<String> texts;
-  List<Function> functions;
+  Function function;
   bool isUser;
   bool isNext;
 
@@ -11,13 +11,12 @@ class Buttons implements Content {
 
   Buttons(
       {@required this.texts,
-      @required this.functions,
+      @required this.function,
       @required this.isUser,
       @required this.isNext,
       this.time})
       : assert(texts != null || texts.length != 0),
-        assert(functions != null || functions.length != 0),
-        assert(texts.length == functions.length),
+        assert(function != null),
         assert(isUser != null),
         assert(isNext != null);
 }

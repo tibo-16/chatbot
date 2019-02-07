@@ -1,7 +1,7 @@
 import 'package:chatbot/chat_screen/models/buttons.dart';
 import 'package:flutter/material.dart';
 
-class ButtonsBubble extends StatelessWidget {
+class ButtonsBubble extends StatefulWidget {
   ButtonsBubble(
       {Key key,
       @required this.buttons,
@@ -24,25 +24,30 @@ class ButtonsBubble extends StatelessWidget {
   final Color bg, textColor;
   final BorderRadius radius;
 
+  @override
+  State<StatefulWidget> createState() => _ButtonsBubbleState();
+}
+
+class _ButtonsBubbleState extends State<ButtonsBubble> {
   List<Widget> _buildButtons(BuildContext context) {
     List<Widget> buttonWidgets = [];
 
-    int length = buttons.texts.length;
+    int length = widget.buttons.texts.length;
     for (int i = 0; i < length; i++) {
-      Padding widget = Padding(
+      Padding padding = Padding(
           padding: (i < length - 1)
               ? const EdgeInsets.only(bottom: 5.0)
               : const EdgeInsets.all(0),
           child: FlatButton(
-            color: Theme.of(context).accentColor,
-            textColor: Colors.white,
+            color: Colors.grey[350],
+            textColor: Colors.black,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            child: Text(buttons.texts[i]),
-            onPressed: buttons.functions[i],
+            child: Text(widget.buttons.texts[i]),
+            onPressed: () => widget.buttons.function(widget.buttons.texts[i]),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ));
-      buttonWidgets.add(widget);
+      buttonWidgets.add(padding);
     }
 
     return buttonWidgets;
@@ -55,6 +60,7 @@ class ButtonsBubble extends StatelessWidget {
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
       margin: const EdgeInsets.all(2.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: _buildButtons(context),
       ),
     );
