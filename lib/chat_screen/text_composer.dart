@@ -38,8 +38,8 @@ class _TextComposerState extends State<TextComposer> {
       Random random = new Random(1);
 
       for (int i = 1; i <= fakeText.length; i++) {
-        int minimum = i * 300;
-        int randomDuration = minimum + random.nextInt(500);
+        int minimum = i * 400;
+        int randomDuration = minimum + random.nextInt(200);
 
         Future.delayed(Duration(milliseconds: randomDuration), () {
           setState(() {

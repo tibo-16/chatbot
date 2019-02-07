@@ -71,7 +71,7 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                 height: 30,
               ),
               Text(
-                'Wie hat Dir der Chat mit Simbo gefallen?',
+                'Wie hat dir der Chat mit Simbo gefallen?',
                 style: TextStyle(color: Colors.white),
               ),
               Row(

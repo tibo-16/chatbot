@@ -54,12 +54,6 @@ class ButtonsBubble extends StatelessWidget {
       constraints:
           BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.80),
       margin: const EdgeInsets.all(2.0),
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        boxShadow: shadow,
-        color: bg,
-        borderRadius: radius,
-      ),
       child: Column(
         children: _buildButtons(context),
       ),
