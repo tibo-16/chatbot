@@ -99,7 +99,7 @@ class _TextComposerState extends State<TextComposer> {
                 style: TextStyle(color: Colors.black, fontSize: 14),
                 maxLines: null,
                 autocorrect: false,
-                textInputAction: TextInputAction.newline,
+                textCapitalization: TextCapitalization.sentences,
                 controller: _textEditingController,
                 onChanged: (String messageText) {
                   setState(() {

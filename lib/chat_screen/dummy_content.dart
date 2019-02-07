@@ -6,7 +6,7 @@ import 'package:chatbot/chat_screen/models/user.dart';
 import 'package:chatbot/constants.dart';
 
 class Dummy {
-  static List<Content> initialize(Function function) {
+  static List<Content> initialize2(Function function) {
     return [
       Message(
           text:
@@ -38,7 +38,7 @@ class Dummy {
     ];
   }
 
-  static List<Content> initialize2(Function function) {
+  static List<Content> initialize(Function function) {
     return [
       Message(
           text:

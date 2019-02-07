@@ -29,7 +29,7 @@ class PictureBubble extends StatelessWidget {
     return Container(
       constraints: BoxConstraints(
           maxWidth: MediaQuery.of(context).size.width * 0.75,
-          maxHeight: MediaQuery.of(context).size.height * 0.25),
+          maxHeight: MediaQuery.of(context).size.height * 0.3),
       margin: const EdgeInsets.all(2.0),
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(

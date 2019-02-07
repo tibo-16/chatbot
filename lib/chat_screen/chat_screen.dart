@@ -37,12 +37,11 @@ class _ChatScreenState extends State<ChatScreen> {
       _list.insert(
           0,
           Message(
-            text:
-                'Hallo ${Constants.USERNAME},\nIch bin ${Constants.CHATBOT_NAME} 🙂',
-            isUser: false,
-            isNext: false,
-            time: DateTime.now()
-          ));
+              text:
+                  'Hallo ${Constants.USERNAME},\nIch bin ${Constants.CHATBOT_NAME} 🙂',
+              isUser: false,
+              isNext: false,
+              time: DateTime.now()));
     });
 
     Future.delayed(const Duration(milliseconds: 1500), () {
@@ -50,12 +49,11 @@ class _ChatScreenState extends State<ChatScreen> {
       _list.insert(
           0,
           Message(
-            text:
-                'Von mir bekommst du die aktuellsten Nachrichten und Informationen über den Aktienkurs.',
-            isUser: false,
-            isNext: true,
-            time: DateTime.now()
-          ));
+              text:
+                  'Von mir bekommst du die aktuellsten Nachrichten und Informationen über den Aktienkurs.',
+              isUser: false,
+              isNext: true,
+              time: DateTime.now()));
     });
 
     Future.delayed(const Duration(milliseconds: 3000), () {
@@ -72,6 +70,8 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   _textMessageSubmitted(String text) {
+    FocusScope.of(context).requestFocus(new FocusNode());
+
     Message userMessage = Message(
       text: text,
       time: DateTime.now(),
@@ -105,6 +105,8 @@ class _ChatScreenState extends State<ChatScreen> {
       botMessages.add(dummyContent[i]);
       counter++;
     }
+
+    if (botMessages.isEmpty) return;
 
     botMessages.first.time = DateTime.now();
 
