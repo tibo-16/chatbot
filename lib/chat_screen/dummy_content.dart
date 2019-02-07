@@ -9,29 +9,22 @@ class Dummy {
   static List<Content> initialize2(Function function) {
     return [
       Message(
+          text: 'In welchem Fachbereich bist du tätig?',
+          isNext: false,
+          isUser: false),
+      User(),
+      Message(
           text:
-              'Ich kann dir den Verlauf der Aktie in verschiedenen Zeiträumen anzeigen.',
+              'Ich hab eine Nachricht im Fachbereich Mammography gefunden',
           isNext: false,
           isUser: false),
       Message(
-          text: 'Welcher Zeitraum interessiert dich am meisten?',
+          text: 'Über welches Thema möchtest du mehr erfahren?',
           isNext: true,
           isUser: false),
       Buttons(
-          texts: ['Letzten Monat', 'Letzten 6 Monate', 'Letztes Jahr'],
+          texts: ['Nachrichten', 'Aktien'],
           function: function,
-          isNext: true,
-          isUser: false),
-      User(),
-      Message(text: 'Alles klar 👍🏻', isNext: false, isUser: false),
-      Picture(
-          file: 'images/kursJahr.png',
-          message:
-              'Dies ist der Verlauf der Siemens Healthineers Aktie des letzten Jahres',
-          isNext: true,
-          isUser: false),
-      Message(
-          text: 'Kann ich dir sonst noch weiterhelfen? 🙂',
           isNext: true,
           isUser: false),
       User(),
@@ -53,9 +46,7 @@ class Dummy {
       User(),
       Message(text: 'Alles klar 👍🏻', isNext: false, isUser: false),
       Message(
-          text: 'Hier ist eine der neusten Nachrichten:',
-          isNext: true,
-          isUser: false),
+          text: 'Hier ist die neusten Nachricht:', isNext: true, isUser: false),
       Picture(
           file: 'images/siemens.jpg',
           message:
@@ -81,7 +72,7 @@ class Dummy {
           isUser: false),
       User(),
       Message(
-          text: 'Leider verstehe ich deine Nachricht nicht 🙁',
+          text: 'Tut mir leid, ich verstehe deine Nachricht leider nicht!',
           isNext: false,
           isUser: false),
       Message(
@@ -99,7 +90,7 @@ class Dummy {
           isNext: true,
           isUser: false),
       User(),
-      Message(text: 'Ok super 🙂', isNext: false, isUser: false),
+      Message(text: 'Ok super!', isNext: false, isUser: false),
       Message(
           text:
               'Willst du den aktuellen Aktienkurs oder den Verlauf der Aktie sehen?',
@@ -132,7 +123,7 @@ class Dummy {
           isNext: true,
           isUser: false),
       Buttons(
-          texts: ['Letzten Monat', 'Letzten 6 Monate', 'Letztes Jahr'],
+          texts: ['Letzter Monat', 'Letzten 6 Monate', 'Letztes Jahr'],
           function: function,
           isNext: true,
           isUser: false),
@@ -141,7 +132,7 @@ class Dummy {
       Picture(
           file: 'images/kurs.png',
           message:
-              'Dies ist der Verlauf der Siemens Healthineers Aktie in den letzten 6 Monate',
+              'Dies ist der Verlauf der Siemens Healthineers Aktie der letzten 6 Monate',
           isNext: true,
           isUser: false),
       Message(

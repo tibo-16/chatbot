@@ -44,6 +44,7 @@ flutter:
    - images/siemens.jpg
    - images/kurs.png
    - images/kursJahr.png
+   - images/mri.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/#resolution-aware.
