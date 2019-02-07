@@ -10,6 +10,38 @@ class Dummy {
     return [
       Message(
           text:
+              'Ich kann dir den Verlauf der Aktie in verschiedenen Zeiträumen anzeigen.',
+          isNext: false,
+          isUser: false),
+      Message(
+          text: 'Welcher Zeitraum interessiert dich am meisten?',
+          isNext: true,
+          isUser: false),
+      Buttons(
+          texts: ['Letzten Monat', 'Letzten 6 Monate', 'Letztes Jahr'],
+          function: function,
+          isNext: true,
+          isUser: false),
+      User(),
+      Message(text: 'Alles klar 👍🏻', isNext: false, isUser: false),
+      Picture(
+          file: 'images/kursJahr.png',
+          message:
+              'Dies ist der Verlauf der Siemens Healthineers Aktie des letzten Jahres',
+          isNext: true,
+          isUser: false),
+      Message(
+          text: 'Kann ich dir sonst noch weiterhelfen? 🙂',
+          isNext: true,
+          isUser: false),
+      User(),
+    ];
+  }
+
+  static List<Content> initialize2(Function function) {
+    return [
+      Message(
+          text:
               'Es ist in letzter Zeit viel passiert.\nWelche Nachrichten möchtest du sehen?',
           isNext: false,
           isUser: false),

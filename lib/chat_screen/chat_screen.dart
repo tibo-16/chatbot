@@ -41,10 +41,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 'Hallo ${Constants.USERNAME},\nIch bin ${Constants.CHATBOT_NAME} 🙂',
             isUser: false,
             isNext: false,
+            time: DateTime.now()
           ));
     });
 
     Future.delayed(const Duration(milliseconds: 1500), () {
+      _list.first.time = null;
       _list.insert(
           0,
           Message(
@@ -52,10 +54,12 @@ class _ChatScreenState extends State<ChatScreen> {
                 'Von mir bekommst du die aktuellsten Nachrichten und Informationen über den Aktienkurs.',
             isUser: false,
             isNext: true,
+            time: DateTime.now()
           ));
     });
 
     Future.delayed(const Duration(milliseconds: 3000), () {
+      _list.first.time = null;
       _list.insert(
           0,
           Message(
@@ -102,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
       counter++;
     }
 
-    botMessages.last.time = DateTime.now();
+    botMessages.first.time = DateTime.now();
 
     for (int i = 0; i <= counter; i++) {
       dummyContent.removeAt(0);
@@ -113,6 +117,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
       Future.delayed(Duration(milliseconds: minimum), () {
         setState(() {
+          _list.first.time = null;
+          botMessages[i].time = DateTime.now();
           _list.insert(0, botMessages[i]);
         });
       });
