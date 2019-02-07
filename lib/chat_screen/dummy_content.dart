@@ -104,7 +104,7 @@ class Dummy {
       User(),
       Message(
           text:
-              'Die Aktie von Siemens Healthineers liegt akutell bei ${Constants.AKTIEN_WERT}!',
+              'Die Aktie von Siemens Healthineers liegt aktuell bei ${Constants.AKTIEN_WERT}!',
           isNext: false,
           isUser: false),
       Buttons(
