@@ -48,12 +48,12 @@ class _StartScreenState extends State<StartScreen> {
                 style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 36),
+                    fontSize: 45),
               ),
               Text(
                 'Nachrichten und Aktienkurse',
                 style: TextStyle(
-                    color: Colors.white70, fontStyle: FontStyle.italic),
+                    color: Colors.white70, fontStyle: FontStyle.italic, fontSize: 20),
               ),
               SizedBox(
                 height: 50,
@@ -61,7 +61,7 @@ class _StartScreenState extends State<StartScreen> {
               RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0)),
-                child: Text('Chat starten'),
+                child: Text('Chat starten', style: TextStyle(fontSize: 16),),
                 onPressed: _showChat,
                 textColor: Colors.white,
                 color: Constants.DARK_BLUE,

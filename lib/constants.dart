@@ -6,5 +6,5 @@ class Constants {
   static const Color BUBBLE_COLOR = Color.fromRGBO(25, 150, 254, 1.0);
   static const Color SIEMENS_COLOR = Color.fromRGBO(0, 153, 153, 1.0);
   static const Color DARK_BLUE = Color.fromRGBO(2, 49, 75, 1.0);
-  static const String AKTIEN_WERT = '34,85 €';
+  static const String AKTIEN_WERT = '34,96 €';
 }

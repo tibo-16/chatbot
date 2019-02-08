@@ -100,7 +100,7 @@ class _TextComposerState extends State<TextComposer> {
                   color: Colors.white),
               child: new TextField(
                 cursorRadius: Radius.circular(10.0),
-                style: TextStyle(color: Colors.black, fontSize: 14),
+                style: TextStyle(color: Colors.black, fontSize: 16),
                 maxLines: null,
                 autocorrect: false,
                 textCapitalization: TextCapitalization.sentences,

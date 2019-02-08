@@ -45,7 +45,7 @@ class PictureBubble extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
                 image: DecorationImage(
-                    image: AssetImage(picture.file), fit: BoxFit.cover),
+                    image: AssetImage(picture.file), fit: BoxFit.fitWidth),
               ),
             ),
           ),
@@ -55,7 +55,7 @@ class PictureBubble extends StatelessWidget {
               padding: const EdgeInsets.only(top: 3.0),
               child: Text(
                 picture.message,
-                style: TextStyle(color: textColor),
+                style: TextStyle(color: textColor, fontSize: 16),
               ),
             ),
           )

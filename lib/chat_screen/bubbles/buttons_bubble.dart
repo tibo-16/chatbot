@@ -43,7 +43,10 @@ class _ButtonsBubbleState extends State<ButtonsBubble> {
             textColor: Colors.black,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)),
-            child: Text(widget.buttons.texts[i]),
+            child: Text(
+              widget.buttons.texts[i],
+              style: TextStyle(fontSize: 16),
+            ),
             onPressed: () => widget.buttons.function(widget.buttons.texts[i]),
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ));

@@ -130,7 +130,7 @@ class Dummy {
       User(),
       Message(text: 'In Ordnung!', isNext: false, isUser: false),
       Picture(
-          file: 'images/kurs.png',
+          file: 'images/kurs6Monate.png',
           message:
               'Dies ist der Verlauf der Siemens Healthineers Aktie der letzten 6 Monate',
           isNext: true,

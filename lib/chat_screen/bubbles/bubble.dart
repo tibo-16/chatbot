@@ -117,7 +117,7 @@ class Bubble extends StatelessWidget {
                     : const EdgeInsets.only(right: 3.0, bottom: 3.0),
                 child: Text(
                   content.isUser ? Constants.USERNAME : Constants.CHATBOT_NAME,
-                  style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                  style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                 ),
               ),
             ],

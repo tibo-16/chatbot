@@ -10,6 +10,8 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
   List<bool> highlightedStars = [false, false, false, false, false];
   bool upSelected = false;
   bool downSelected = false;
+  bool upSelected2 = false;
+  bool downSelected2 = false;
 
   _showStart() {
     Navigator.pop(context);
@@ -41,8 +43,24 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
     }
   }
 
+  _selectThumb2(bool up) {
+    if (up) {
+      setState(() {
+        upSelected2 = true;
+        downSelected2 = false;
+      });
+    } else {
+      setState(() {
+        upSelected2 = false;
+        downSelected2 = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    double size = MediaQuery.of(context).size.height * 0.10;
+
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -59,20 +77,28 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              Image.asset(
+                'images/avatar.png',
+                height: size,
+                width: size,
+              ),
+              Container(
+                height: 20,
+              ),
               Text(
                 'Danke!',
                 style: TextStyle(
                     color: Colors.white,
-                    fontSize: 35,
+                    fontSize: 45,
                     fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               Container(
-                height: 30,
+                height: 50,
               ),
               Text(
                 'Wie hat dir der Chat mit Simbo gefallen?',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -81,45 +107,45 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                     icon: Icon(
                         highlightedStars[0] ? Icons.star : Icons.star_border),
                     onPressed: () => _highlightStars(0),
-                    iconSize: 36,
+                    iconSize: 44,
                     color: Constants.DARK_BLUE,
                   ),
                   IconButton(
                     icon: Icon(
                         highlightedStars[1] ? Icons.star : Icons.star_border),
                     onPressed: () => _highlightStars(1),
-                    iconSize: 36,
+                    iconSize: 44,
                     color: Constants.DARK_BLUE,
                   ),
                   IconButton(
                     icon: Icon(
                         highlightedStars[2] ? Icons.star : Icons.star_border),
                     onPressed: () => _highlightStars(2),
-                    iconSize: 36,
+                    iconSize: 44,
                     color: Constants.DARK_BLUE,
                   ),
                   IconButton(
                     icon: Icon(
                         highlightedStars[3] ? Icons.star : Icons.star_border),
                     onPressed: () => _highlightStars(3),
-                    iconSize: 36,
+                    iconSize: 44,
                     color: Constants.DARK_BLUE,
                   ),
                   IconButton(
                     icon: Icon(
                         highlightedStars[4] ? Icons.star : Icons.star_border),
                     onPressed: () => _highlightStars(4),
-                    iconSize: 36,
+                    iconSize: 44,
                     color: Constants.DARK_BLUE,
                   ),
                 ],
               ),
               Container(
-                height: 30,
+                height: 40,
               ),
               Text(
                 'Konnte Simbo alle deine Frage beantworten?',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 18),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -127,19 +153,43 @@ class _EvaluationScreenState extends State<EvaluationScreen> {
                   IconButton(
                     icon: Icon(Icons.thumb_up),
                     onPressed: () => _selectThumb(true),
-                    iconSize: 36,
+                    iconSize: 40,
                     color: upSelected ? Constants.DARK_BLUE : Colors.white,
                   ),
                   IconButton(
                     icon: Icon(Icons.thumb_down),
                     onPressed: () => _selectThumb(false),
-                    iconSize: 36,
+                    iconSize: 40,
                     color: downSelected ? Constants.DARK_BLUE : Colors.white,
                   ),
                 ],
               ),
               Container(
                 height: 40,
+              ),
+              Text(
+                'Würdest du in Zukunft nochmal mit Simbo sprechen wollen?',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.thumb_up),
+                    onPressed: () => _selectThumb2(true),
+                    iconSize: 40,
+                    color: upSelected2 ? Constants.DARK_BLUE : Colors.white,
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.thumb_down),
+                    onPressed: () => _selectThumb2(false),
+                    iconSize: 40,
+                    color: downSelected2 ? Constants.DARK_BLUE : Colors.white,
+                  ),
+                ],
+              ),
+              Container(
+                height: 50,
               ),
               OutlineButton(
                 child: Icon(
