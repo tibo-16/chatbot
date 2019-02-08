@@ -4,6 +4,7 @@ import 'package:chatbot/chat_screen/models/message.dart';
 import 'package:chatbot/chat_screen/models/picture.dart';
 import 'package:chatbot/chat_screen/models/user.dart';
 import 'package:chatbot/constants.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Dummy {
   static List<Content> initialize2(Function function) {
@@ -14,8 +15,7 @@ class Dummy {
           isUser: false),
       User(),
       Message(
-          text:
-              'Ich hab eine Nachricht im Fachbereich Mammography gefunden',
+          text: 'Ich hab eine Nachricht im Fachbereich Mammography gefunden',
           isNext: false,
           isUser: false),
       Message(
@@ -29,6 +29,14 @@ class Dummy {
           isUser: false),
       User(),
     ];
+  }
+
+  static void _launchURL(String text) async {
+    const url =
+        'https://www.finanzen.net/nachricht/aktien/gute-stimmung-siemens-healthineers-mit-zuversicht-auf-der-ersten-hauptversammlung-7103809';
+    if (await canLaunch(url)) {
+      await launch(url);
+    }
   }
 
   static List<Content> initialize(Function function) {
@@ -67,7 +75,7 @@ class Dummy {
           isUser: false),
       Buttons(
           texts: ['Im Browser öffnen', 'Nächste Nachricht'],
-          function: function,
+          function: _launchURL,
           isNext: true,
           isUser: false),
       User(),
