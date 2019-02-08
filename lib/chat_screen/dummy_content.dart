@@ -62,7 +62,7 @@ class Dummy {
           isNext: true,
           isUser: false),
       Buttons(
-          texts: ['Gib mir mehr Informationen', 'Nächste Nachricht'],
+          texts: ['Nächste Nachricht', 'Anderes Thema'],
           function: function,
           isNext: true,
           isUser: false),
@@ -148,7 +148,7 @@ class Dummy {
           isNext: true,
           isUser: false),
       User(),
-      Message(text: 'Freut mich zu hören 😊', isNext: false, isUser: false),
+      Message(text: 'Vielen Dank für den tollen Chat 😊', isNext: false, isUser: false),
       Message(text: 'Bis zum nächsten mal!', isNext: true, isUser: false),
       User(),
     ];
